@@ -10,9 +10,9 @@ private:
 	vector<vector<T>> data;
 	friend ostream& operator<<(ostream &stream, const matrix<S, T> &mat)
 	{
-		for (int i = 0; i < S - 1; i++)
+		for (int i = 0; i < S; i++)
 		{
-			for (int j = 0; j < S - 1; j++)
+			for (int j = 0; j < S; j++)
 				stream << mat.data[i][j];
 			stream << "\n";
 		}
@@ -70,28 +70,28 @@ inline matrix<S, T> matrix<S, T>::inverse()
 template<int S, typename T>
 inline matrix<S - 1, T> matrix<S, T>::adding(int i, int j)
 {
-	vector<vector<T>> res(S);
-	for (int r = 0; r < S; r++) res[r].resize(S);
-	int c_i, c_j = 0;
+	vector<vector<T>> res(S - 1);
+	for (int r = 0; r < S - 1; r++) res[r].resize(S - 1);
+	int c_i = 0, c_j;
 
-	for (int k = 0; k < S; k++)
+	for (int b = 0; b < S; b++)
 	{
-		c_i = 0;
-		for (int l = 0; l < S; l++)
-			if ((k == i) && (l == j)) continue;
-			else
-			{
-				res[c_i][c_j] = data[k][l];
-				c_i++;
-			}
-		c_j++;
+		if (b == i) continue;
+		c_j = 0;
+		for (int c = 0; c < S; c++)
+		{
+			if (c == j) continue;
+			res[c_i][c_j] = data[b][c];
+			c_j++;
+		}
+		c_i++;
 	}
 		
 	return matrix<S - 1, T>(res);
 }
 
 template<int S, typename T>
-inline T matrix<S, T>::deter(T nul)
+T matrix<S, T>::deter(T nul)
 {
 	if (S == 1)
 		return data[0][0];
@@ -99,14 +99,18 @@ inline T matrix<S, T>::deter(T nul)
 	{
 		T ret = nul;
 		for (int i = 0; i < (int)data.size(); i++)
-			ret = ret + adding(0, i).deter(nul) * pow(-1, i);
+			ret = ret + adding(0, i).deter(nul) * (pow(-1, i));
 		return ret;
 	}
 }
 
-template<int S, typename T> matrix<S, T> matrix<S, T>::operator+(const matrix &)
+template<int S, typename T> matrix<S, T> matrix<S, T>::operator+(const matrix &st)
 {
-	return matrix();
+	vector<vector<T>> ret;
+	for (int i = 0; i < S; i++)
+		for (int j = 0; j < S; j++)
+			ret[i][j] = data[i][j] + st.data[i][j];
+	return matrix<S, T>(ret);
 }
 
 template<int S, typename T> matrix<S, T> matrix<S, T>::operator-(const matrix &)

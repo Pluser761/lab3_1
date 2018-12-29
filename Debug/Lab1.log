@@ -1,14 +1,2 @@
 ﻿  Source.cpp
-a:\работа\3 семестр\cplusplus\lab1\matrix.h(102): warning C4244: =: преобразование "double" в "T", возможна потеря данных
-          with
-          [
-              T=int
-          ]
-  a:\работа\3 семестр\cplusplus\lab1\matrix.h(95): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
-  a:\работа\3 семестр\cplusplus\lab1\source.cpp(14): note: выполняется компиляция ссылки на экземпляр шаблон функции "T matrix<4,T>::deter(T)"
-          with
-          [
-              T=int
-          ]
-  a:\работа\3 семестр\cplusplus\lab1\source.cpp(13): note: выполняется компиляция ссылки на экземпляр шаблон класс "matrix<4,int>"
-a:\работа\3 семестр\cplusplus\lab1\source.cpp(19): fatal error C1202: рекурсивный тип или слишком сложный контекст зависимости функций
+  Lab1.vcxproj -> D:\work\Solution\Debug\Lab1.exe
