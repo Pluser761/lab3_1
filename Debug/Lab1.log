@@ -1,2 +1,18 @@
-﻿Source.obj : error LNK2019: ссылка на неразрешенный внешний символ "int __cdecl deter(class matrix<int> const &)" (?deter@@YAHABV?$matrix@H@@@Z) в функции _main
-D:\work\Solution\Debug\Lab1.exe : fatal error LNK1120: неразрешенных внешних элементов: 1
+﻿  Source.cpp
+d:\work\solution\lab3_1\source.cpp(10): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+d:\work\solution\lab3_1\matrix.h(40): warning C4244: =: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+  d:\work\solution\lab3_1\matrix.h(30): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+  d:\work\solution\lab3_1\source.cpp(16): note: выполняется компиляция ссылки на экземпляр шаблон класс "matrix<int>"
+d:\work\solution\lab3_1\matrix.h(13): warning C4018: <: несоответствие типов со знаком и без знака
+  d:\work\solution\lab3_1\matrix.h(12): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+d:\work\solution\lab3_1\matrix.h(15): warning C4018: <: несоответствие типов со знаком и без знака
+d:\work\solution\lab3_1\matrix.h(88): warning C4018: <: несоответствие типов со знаком и без знака
+  d:\work\solution\lab3_1\matrix.h(86): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+  d:\work\solution\lab3_1\matrix.h(35): note: выполняется компиляция ссылки на экземпляр шаблон функции "matrix<int> matrix<int>::adding(int,int)"
+d:\work\solution\lab3_1\matrix.h(91): warning C4018: <: несоответствие типов со знаком и без знака
+d:\work\solution\lab3_1\matrix.h(95): warning C4018: <: несоответствие типов со знаком и без знака
+  Lab1.vcxproj -> D:\work\Solution\Debug\Lab1.exe

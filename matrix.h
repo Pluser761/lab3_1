@@ -13,7 +13,7 @@ private:
 		for (int i = 0; i < mat.data.size(); i++)
 		{
 			for (int j = 0; j < mat.data.size(); j++)
-				stream << mat.data[i][j];
+				stream << mat.data[i][j] << " - ";
 			stream << "\n";
 		}
 		return stream;
@@ -26,7 +26,22 @@ public:
 	matrix<T> tran();
 	matrix<T> inverse();
 	matrix<T> adding(int, int);
-	friend T deter(const matrix<T> &mat);
+	friend T deter(matrix<T> mat)
+	{
+		if (mat.data.size() == 1)
+			return mat.data[0][0];
+		else
+		{
+			T ret = deter(mat.adding(0, 0));
+			cout << 0 << " ---------- " << endl << mat.adding(0, 0) << endl << endl;
+			for (int i = 1; i < (int)mat.data.size(); i++)
+			{
+				cout << i << " ---------- " << endl << mat.adding(0, i) << endl << endl;
+				ret = ret + deter(mat.adding(0, i)) * (pow(-1, i));
+			}
+			return ret;
+		}
+	}
 
 	matrix operator+(const matrix &);
 	matrix operator-(const matrix &);
@@ -86,20 +101,7 @@ inline matrix<T> matrix<T>::adding(int i, int j)
 		c_i++;
 	}
 		
-	return matrix<data.size() - 1, T>(res);
-}
-
-template<typename T> T deter(const matrix<T> &mat)
-{
-	if (mat.data.size() == 1)
-		return mat.data[0][0];
-	else
-	{
-		T ret = deter(mat.adding(0, 0));
-		for (int i = 1; i < (int)mat.data.size(); i++)
-			ret = ret + deter(mat.adding(0, i)) * (pow(-1, i));
-		return ret;
-	}
+	return matrix<T>(res);
 }
 
 template<typename T> matrix<T> matrix<T>::operator+(const matrix &st)
