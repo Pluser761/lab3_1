@@ -11,8 +11,7 @@ int main()
 	vector<vector<int>> st(3);
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
-			if (i == j) st[i].push_back(1);
-			else st[i].push_back(0);
+			st[i].push_back(rand() % 100);
 	matrix<int> a(st);
 	cout << a << "\n" << deter(a) << endl;
 	system("pause");

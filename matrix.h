@@ -32,13 +32,9 @@ public:
 			return mat.data[0][0];
 		else
 		{
-			T ret = deter(mat.adding(0, 0));
-			cout << 0 << " ---------- " << endl << mat.adding(0, 0) << endl << endl;
+			T ret = deter(mat.adding(0, 0)) * mat.data[0][0];
 			for (int i = 1; i < (int)mat.data.size(); i++)
-			{
-				cout << i << " ---------- " << endl << mat.adding(0, i) << endl << endl;
-				ret = ret + deter(mat.adding(0, i)) * (pow(-1, i));
-			}
+				ret = ret + deter(mat.adding(0, i)) * mat.data[0][i] * pow(-1, i);
 			return ret;
 		}
 	}
@@ -113,14 +109,23 @@ template<typename T> matrix<T> matrix<T>::operator+(const matrix &st)
 	return matrix<T>(ret);
 }
 
-template<typename T> matrix<T> matrix<T>::operator-(const matrix &)
+template<typename T> matrix<T> matrix<T>::operator-(const matrix &st)
 {
-	return matrix();
+	vector<vector<T>> ret;
+	for (int i = 0; i < data.size(); i++)
+		for (int j = 0; j < data.size(); j++)
+			ret[i][j] = data[i][j] - st.data[i][j];
+	return matrix<T>(ret);
 }
 
 template<typename T> matrix<T> matrix<T>::operator*(const matrix &)
 {
-	return matrix();
+	vector<vector<T>> ret;
+	for (int k = 0; k < pow(data.size(), 2); i++)
+		for (int i = 0; i < data.size(); i++)
+			for (int j = 0; j < data.size(); j++)
+				ret[i][j] = data[i][j] - st.data[i][j];
+	return matrix<T>(ret);
 }
 
 template<typename T> matrix<T> matrix<T>::operator*(const T &st)
