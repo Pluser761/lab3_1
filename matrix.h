@@ -8,116 +8,133 @@ template<int S, typename T> class matrix
 {
 private:
 	vector<vector<T>> data;
-	//friend ostream& operator<<<T>(ostream&, const matrix<T>&);
+	friend ostream& operator<<(ostream &stream, const matrix<S, T> &mat)
+	{
+		for (int i = 0; i < S - 1; i++)
+		{
+			for (int j = 0; j < S - 1; j++)
+				stream << mat.data[i][j];
+			stream << "\n";
+		}
+		return stream;
+	}
 public:
 	matrix();
 	matrix(vector<vector<T>> data);
 	~matrix();
 
 	matrix<S, T> tran();
-	matrix<S, T> reverse();
+	matrix<S, T> inverse();
+	matrix<S - 1, T> adding(int i, int j);
+	T deter(T);
 
 	matrix operator+(const matrix &);
 	matrix operator-(const matrix &);
 	matrix operator*(const matrix &);
-	//matrix operator/(const matrix &);
+	matrix operator*(const T &);
+	matrix operator/(const matrix &);
 	matrix operator=(const matrix &);
-
-	matrix inverse();
 };
 
-template<typename T> matrix<T>::matrix(const matrix &st)
+template<int S, typename T>
+inline matrix<S, T>::matrix()
 {
-	n = st.n;
-	arr = new T*[n];
-	for (int i = 0; i < n; i++)
-	{
-		*(arr + i) = new T[n];
-		for (int j = 0; j < n; j++) *(*(arr + i) + j) = st.arr[i][j];
-	}
 }
 
-template<typename T> matrix<T>::matrix()
+template<int S, typename T>
+inline matrix<S, T>::matrix(vector<vector<T>> data)
 {
-	n = 0;
-	arr = 0;
+	this->data = data;
 }
 
-template<typename T> matrix<T>::matrix(int size)
+template<int S, typename T>
+inline matrix<S, T>::~matrix()
 {
-	n = size;
-	arr = new T*[n];
-	for (int i = 0; i < n; i++)
-	{
-		*(arr + i) = new T[n];
-		for (int j = 0; j < n; j++) *(*(arr + i) + j) = 0;
-	}
 }
 
-template<typename T> matrix<T>::~matrix()
+template<int S, typename T>
+inline matrix<S, T> matrix<S, T>::tran()
 {
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++) delete(*(arr + i));
-	delete(arr);
-}
-
-template<typename T> matrix<T> matrix<T>::operator+(const matrix &st)
-{
-	matrix ret(n);
-	for (int i = 0; i < st.n; i++)
-		for (int j = 0; j < st.n; j++)
-			ret.arr[i][j] = arr[i][j] + st.arr[i][j];
+	matrix<S, T> ret(data);
+	for (int i = 1; i < ret.data.size(); i++) for (int j = 1; j < ret.data.size(); j++) swap(ret.data[i][j], ret.data[j][i]);
 	return ret;
 }
 
-template<typename T> matrix<T> matrix<T>::operator-(const matrix &st)
+template<int S, typename T>
+inline matrix<S, T> matrix<S, T>::inverse()
 {
-	matrix ret(n);
-	for (int i = 0; i < st.n; i++)
-		for (int j = 0; j < st.n; j++)
-			ret.arr[i][j] = arr[i][j] - st.arr[i][j];
-	return ret;
+
+	return matrix<S, T>();
 }
 
-template<typename T> matrix<T> matrix<T>::operator*(const matrix &st)
+template<int S, typename T>
+inline matrix<S - 1, T> matrix<S, T>::adding(int i, int j)
 {
-	matrix<T> ret(n);
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++)
-		{
-			T value = 0;
-			for (int k = 0; k < n; k++) value += arr[i][k] * st.arr[k][j];
-		}
+	vector<vector<T>> res(S);
+	for (int r = 0; r < S; r++) res[r].resize(S);
+	int c_i, c_j = 0;
+
+	for (int k = 0; k < S; k++)
+	{
+		c_i = 0;
+		for (int l = 0; l < S; l++)
+			if ((k == i) && (l == j)) continue;
+			else
+			{
+				res[c_i][c_j] = data[k][l];
+				c_i++;
+			}
+		c_j++;
+	}
+		
+	return matrix<S - 1, T>(res);
 }
 
-//template <typename T> matrix<T> matrix<T>::operator/(matrix &st)
-//{
-//
-//}
-
-template<typename T> matrix<T> matrix<T>::operator=(const matrix &st)
+template<int S, typename T>
+inline T matrix<S, T>::deter(T nul)
 {
-	if (n != st.n) cout << "n != st.n\n";
-	else memcpy(this, st.arr, sizeof(T) * n * n);
+	if (S == 1)
+		return data[0][0];
+	else
+	{
+		T ret = nul;
+		for (int i = 0; i < (int)data.size(); i++)
+			ret = ret + adding(0, i).deter(nul) * pow(-1, i);
+		return ret;
+	}
+}
+
+template<int S, typename T> matrix<S, T> matrix<S, T>::operator+(const matrix &)
+{
+	return matrix();
+}
+
+template<int S, typename T> matrix<S, T> matrix<S, T>::operator-(const matrix &)
+{
+	return matrix();
+}
+
+template<int S, typename T> matrix<S, T> matrix<S, T>::operator*(const matrix &)
+{
+	return matrix();
+}
+
+template<int S, typename T>
+inline matrix<S, T> matrix<S, T>::operator*(const T &st)
+{
+	for (int i = 0; i < S; i++)
+		for (int j = 0; j < S; j++)
+			data[i][j] = data[i][j] * st;
 	return *this;
 }
 
-template<typename T> ostream& operator<<<T>(ostream &stream, const matrix<T> &st)
+template<int S, typename T> matrix<S, T> matrix<S, T>::operator/(const matrix &)
 {
-	for (int i = 0; i < st.n; i++)
-	{
-		for (int j = 0; j < st.n; j++)
-			stream << st.arr[i][j] << " ";
-		stream << "\n";
-	}
-	return stream;
+	return matrix();
 }
 
-template<typename T> matrix<T> matrix<T>::inverse()
+template<int S, typename T> matrix<S, T> matrix<S, T>::operator=(const matrix &st)
 {
-	matrix<T> ret(n);
-	for (int i = 1; i < n; i++)
-		for (int j = 1; j < n; j++)
-			swap(ret[i][j], ret[j][i]);
-	return ret;
+	data = st.data;
+	return *this;
 }
