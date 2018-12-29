@@ -1,0 +1,56 @@
+Ïðèìåð ïàðñåðà
+
+istream& operator»(istream& stream, fraction& frac) 
+{ 
+frac.setf(0); 
+frac.setn(0); 
+frac.setd(1); 
+bool pflag = false, dflag = false, mflag = false; 
+
+char c, c_ = ' ', buf[128] = { 0 }, *b = buf, nbuf[128] = { 0 }, *n = nbuf; 
+
+while ((c = stream.get()) != ']' && stream.good()) if (isspace(c)) continue; else *b++ = c; 
+
+*b++ = ' '; 
+b = buf; 
+
+while (*b) 
+{ 
+if (isdigit(*b)) *n++ = *b; 
+else if (*b == '-') mflag = true; 
+else if (*b == '.') 
+{ 
+pflag = true; 
+*n = 0; 
+n = nbuf; 
+frac.setf(gorner(n)); 
+} 
+else if (*b == '/') 
+{ 
+dflag = true; 
+*n = 0; 
+n = nbuf; 
+frac.setn(gorner(n)); 
+} 
+else if (*b == ' ') 
+{ 
+*n = 0; 
+n = nbuf; 
+if (dflag) 
+{ 
+if (!mflag) frac.setd(gorner(n)); 
+else frac.setd(-gorner(n)); 
+} 
+else 
+{ 
+frac.setf(gorner(n)); 
+frac.setn(0); 
+if (!mflag) frac.setd(1); 
+else frac.setd(-1); 
+} 
+} 
+b++; 
+} 
+frac.convertToLegal(); 
+return stream; 
+}
