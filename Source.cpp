@@ -10,9 +10,8 @@ int main()
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
 			st[i].push_back(i * 3 + j);
-	matrix<3, int> a(st);
-	//a.deter(0);
-	cout << a << "\n" << a.adding(1, 1);
+	matrix<int> a(st);
+	cout << a << "\n" << deter(a);
 	system("pause");
 	return 0;
 }
