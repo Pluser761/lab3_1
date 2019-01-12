@@ -1,18 +1,22 @@
 #pragma once
 #include <iostream>
+#include <map>
 
 using namespace std;
 
 template<typename T> class polynom
 {
 private:
-	int size;
-	T* p;
-	friend istream& operator>>(istream&, const polynom&);
-	friend ostream& operator<<(ostream&, const polynom&);
+	map<int, T> data;
+	friend ostream& operator<<(ostream &out, const polynom &st)
+	{
+		for (int i = st.data.size() - 1; i <= 0; i--)
+			out << st.data[i] << "x^" << i << " _ ";
+		return out;
+	}
 public:
 	polynom();
-	polynom(int);
+	polynom(vector<T>);
 	~polynom();
 
 	polynom operator+(const polynom&);
@@ -23,14 +27,11 @@ public:
 
 template<typename T> polynom<T>::polynom()
 {
-	size = 0;
-	p = 0;
 }
 
-template<typename T> polynom<T>::polynom(int n)
+template<typename T> polynom<T>::polynom(vector<T> vec)
 {
-	size = n;
-	for (int i = 0; i < size; i++) p[i] = 0;
+	data = vec;
 }
 
 template<typename T> polynom<T>::~polynom()
@@ -40,46 +41,39 @@ template<typename T> polynom<T>::~polynom()
 
 template<typename T> polynom<T> polynom<T>::operator+(const polynom &st)
 {
-	T* ret;
-	if (size <= st.size)
+	if (size != st.size)
 	{
-		ret = st;
-		for (int i = 0; i < size; i++)
-		{
-			ret[i] = ret[i] + p[i];
-		}
+		cout << "Polynoms have different length.\n";
+		exit(-1);
 	}
 	else
 	{
-		ret = this;
-		for (int i = 0; i < st.size; i++)
-		{
-			ret[i] = ret[i] + st.p[i];
-		}
+		vector<T> ret = data;
+		for (int i = 0; i < data.size(); i++)
+			ret[i] = ret[i] + st.data[i];
 	}
-	return ret;
+	return polynom<T>(ret);
 }
 
 template<typename T> polynom<T> polynom<T>::operator-(const polynom &st)
 {
-	T* ret;
-	if (size <= st.size)
+	if (size != st.size)
 	{
-		ret = st;
-		for (int i = 0; i < size; i++) ret[i] = ret[i] - p[i];
+		cout << "Polynoms have different length.\n";
+		exit(-1);
 	}
 	else
 	{
-		ret = this;
-		for (int i = 0; i < st.size; i++) ret[i] = ret[i] - st.p[i];
+		vector<T> ret = data;
+		for (int i = 0; i < data.size(); i++)
+			ret[i] = ret[i] - st.data[i];
 	}
-	return ret;
+	return polynom<T>(ret);
 }
 
 template<typename T> polynom<T> polynom<T>::operator*(const polynom &st)
 {
-	T* ret(size + st.size);
-
+	vector<T> ret(data.size()*st.data.size());
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < st.size; j++)
 			ret[i + j] = ret[i + j] + p[i] * st.p[j];
@@ -90,19 +84,4 @@ template<typename T> polynom<T> polynom<T>::operator*(const polynom &st)
 template<typename T> polynom<T> polynom<T>::operator/(const polynom &st)
 {
 
-}
-
-template<typename T> istream& operator>>(istream &in, polynom<T> &st)
-{
-	in.
-	return in;
-}
-
-template<typename T> ostream& operator>>(ostream &out, const polynom<T> &st)
-{
-	if (st.size == 0) return out;
-	out << st.p[0];
-	for (int i = 1; i < st.size; i++)
-		out << st.p[i];
-	return out;
 }

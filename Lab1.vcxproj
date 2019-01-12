@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="formatrix.h" />
     <ClInclude Include="fraction.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="polinom.h" />

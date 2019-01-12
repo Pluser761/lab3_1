@@ -12,6 +12,7 @@ int main()
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
 			st[i].push_back(rand() % 100);
+
 	matrix<int> a(st);
 	cout << a << "\n" << deter(a) << endl;
 	system("pause");

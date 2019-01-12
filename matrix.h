@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include "fraction.h"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ public:
 	~matrix();
 
 	matrix<T> tran();
-	matrix<T> inverse();
+	matrix<fraction<T>> inverse();
 	matrix<T> adding(int, int);
 	friend T deter(matrix<T> mat)
 	{
@@ -72,9 +73,22 @@ inline matrix<T> matrix<T>::tran()
 }
 
 template<typename T>
-inline matrix<T> matrix<T>::inverse()
+inline matrix<fraction<T>> matrix<T>::inverse()
 {
-	return matrix<T>();
+	vector<vector<fraction<T>>> vec(data.size());
+	T det = deter(this);
+
+	for (int i = 0; i < data.size(); i++)
+	{
+		vec.push_back(vector<fraction<T>>(data.size()));
+		for (int j = 0; j < data.size(); j++)
+		{
+			vec[i][j].numerator = adding(i, j);
+			vec[i][j].denumerator = det;
+		}
+	}
+
+	return matrix<fraction<T>>(vec);
 }
 
 template<typename T>
@@ -118,10 +132,10 @@ template<typename T> matrix<T> matrix<T>::operator-(const matrix &st)
 	return matrix<T>(ret);
 }
 
-template<typename T> matrix<T> matrix<T>::operator*(const matrix &)
+template<typename T> matrix<T> matrix<T>::operator*(const matrix &st)
 {
 	vector<vector<T>> ret;
-	for (int k = 0; k < pow(data.size(), 2); i++)
+	for (int k = 0; k < pow(data.size(), 2); k++)
 		for (int i = 0; i < data.size(); i++)
 			for (int j = 0; j < data.size(); j++)
 				ret[i][j] = data[i][j] - st.data[i][j];
