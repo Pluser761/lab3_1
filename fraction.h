@@ -21,8 +21,9 @@ public:
 	fraction operator+(const fraction&);
 	fraction operator-(const fraction&);
 	fraction operator*(const fraction&);
-	//fraction operator*(const T);
+	fraction operator*(const T&);
 	fraction operator/(const fraction&);
+	fraction operator/(const T&);
 	fraction operator=(const fraction&);
 };
 
@@ -34,7 +35,11 @@ template<typename T> fraction<T>::fraction()
 
 template<typename T> fraction<T>::fraction(T n, T d)
 {
-	if (!d) throw("Denum is zero")
+	if (!d)
+	{
+		cout << "Denum is zero";
+		exit(-1);
+	}
 	else
 	{
 		denominator = d;
@@ -67,9 +72,21 @@ inline fraction<T> fraction<T>::operator*(const fraction &st)
 }
 
 template<typename T>
+inline fraction<T> fraction<T>::operator*(const T &st)
+{
+	return fraction(numerator * st, denominator);
+}
+
+template<typename T>
 inline fraction<T> fraction<T>::operator/(const fraction &st)
 {
 	return fraction(numerator*st.denominator, denominator*st.numerator);
+}
+
+template<typename T>
+inline fraction<T> fraction<T>::operator/(const T &st)
+{
+	return fraction(numerator, denominator * st);
 }
 
 template<typename T>

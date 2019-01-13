@@ -11,10 +11,10 @@ int main()
 	vector<vector<int>> st(3);
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
-			st[i].push_back(rand() % 100);
+			st[i].push_back(rand() % 10);
 
 	matrix<int> a(st);
-	cout << a << "\n" << deter(a) << endl;
+	cout << a << "\n" << a.inverse() << endl;
 	system("pause");
 	return 0;
 }

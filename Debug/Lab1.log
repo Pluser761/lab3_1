@@ -1,3 +1,28 @@
 ﻿  Source.cpp
-d:\work\solution\lab3_1\fraction.h(38): error C2760: синтаксическая ошибка: ожидался токен "<Нет данных>", а не "<Нет данных>"
-d:\work\solution\lab3_1\source.cpp(10): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+a:\работа\3 семестр\cplusplus\lab1\source.cpp(10): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+a:\работа\3 семестр\cplusplus\lab1\matrix.h(14): warning C4018: <: несоответствие типов со знаком и без знака
+  a:\работа\3 семестр\cplusplus\lab1\matrix.h(13): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+  a:\работа\3 семестр\cplusplus\lab1\source.cpp(16): note: выполняется компиляция ссылки на экземпляр шаблон класс "matrix<int>"
+a:\работа\3 семестр\cplusplus\lab1\matrix.h(16): warning C4018: <: несоответствие типов со знаком и без знака
+a:\работа\3 семестр\cplusplus\lab1\matrix.h(81): warning C4018: <: несоответствие типов со знаком и без знака
+  a:\работа\3 семестр\cplusplus\lab1\matrix.h(78): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+  a:\работа\3 семестр\cplusplus\lab1\source.cpp(17): note: выполняется компиляция ссылки на экземпляр шаблон функции "matrix<int> matrix<int>::inverse(void)"
+a:\работа\3 семестр\cplusplus\lab1\matrix.h(82): warning C4018: <: несоответствие типов со знаком и без знака
+a:\работа\3 семестр\cplusplus\lab1\matrix.h(38): warning C4244: =: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+  a:\работа\3 семестр\cplusplus\lab1\matrix.h(31): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+a:\работа\3 семестр\cplusplus\lab1\matrix.h(91): warning C4018: <: несоответствие типов со знаком и без знака
+  a:\работа\3 семестр\cplusplus\lab1\matrix.h(89): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+  a:\работа\3 семестр\cplusplus\lab1\matrix.h(83): note: выполняется компиляция ссылки на экземпляр шаблон функции "matrix<int> matrix<int>::adding(int,int)"
+  a:\работа\3 семестр\cplusplus\lab1\matrix.h(59): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+  a:\работа\3 семестр\cplusplus\lab1\source.cpp(16): note: выполняется компиляция ссылки на экземпляр шаблон функции "matrix<int>::matrix(std::vector<std::vector<int,std::allocator<_Ty>>,std::allocator<std::vector<_Ty,std::allocator<_Ty>>>>)"
+          with
+          [
+              _Ty=int
+          ]
+a:\работа\3 семестр\cplusplus\lab1\matrix.h(94): warning C4018: <: несоответствие типов со знаком и без знака
+a:\работа\3 семестр\cplusplus\lab1\matrix.h(98): warning C4018: <: несоответствие типов со знаком и без знака
+  Lab1.vcxproj -> A:\работа\3 семестр\Cplusplus\Debug\Lab1.exe

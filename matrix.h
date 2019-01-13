@@ -25,7 +25,7 @@ public:
 	~matrix();
 
 	matrix<T> tran();
-	matrix<fraction<T>> inverse();
+	matrix<T> inverse();
 	matrix<T> adding(int, int);
 	friend T deter(matrix<T> mat)
 	{
@@ -45,6 +45,7 @@ public:
 	matrix operator*(const matrix &);
 	matrix operator*(const T &);
 	matrix operator/(const matrix &);
+	matrix operator/(const T &);
 	matrix operator=(const matrix &);
 };
 
@@ -54,9 +55,9 @@ inline matrix<T>::matrix()
 }
 
 template<typename T>
-inline matrix<T>::matrix(vector<vector<T>> data)
+inline matrix<T>::matrix(vector<vector<T>> vec)
 {
-	this->data = data;
+	data = vec;
 }
 
 template<typename T>
@@ -73,22 +74,14 @@ inline matrix<T> matrix<T>::tran()
 }
 
 template<typename T>
-inline matrix<fraction<T>> matrix<T>::inverse()
+inline matrix<T> matrix<T>::inverse()
 {
-	vector<vector<fraction<T>>> vec(data.size());
-	T det = deter(this);
-
+	vector<vector<T>> ret = data;
+	T det = deter(*this);
 	for (int i = 0; i < data.size(); i++)
-	{
-		vec.push_back(vector<fraction<T>>(data.size()));
 		for (int j = 0; j < data.size(); j++)
-		{
-			vec[i][j].numerator = adding(i, j);
-			vec[i][j].denumerator = det;
-		}
-	}
-
-	return matrix<fraction<T>>(vec);
+			ret[i][j] = deter(adding(i, j)) / det;
+	return matrix<T>(ret);
 }
 
 template<typename T>
@@ -152,6 +145,16 @@ template<typename T> matrix<T> matrix<T>::operator*(const T &st)
 
 template<typename T> matrix<T> matrix<T>::operator/(const matrix &)
 {
+	return matrix();
+}
+
+template<typename T>
+inline matrix<T> matrix<T>::operator/(const T &st)
+{
+	vector<vector<T>> ret = data;
+	for (int i = 0; i < data.size(); i++)
+		for (int j = 0; j < data.size(); j++)
+			ret[i][j] = ret[i][j] / st;
 	return matrix();
 }
 
