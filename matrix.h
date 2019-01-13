@@ -103,7 +103,6 @@ inline matrix<T> matrix<T>::adding(int i, int j)
 		}
 		c_i++;
 	}
-		
 	return matrix<T>(res);
 }
 
